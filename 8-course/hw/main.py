@@ -27,9 +27,12 @@ class Question:
             return False
 
     def build_question(self):
-        user_answer = input(f'{self.question}: ')
+        return f"Вопрос {self.question}" \
+               f"Сложность {self.difficulty}/5"
 
     def ask(self):
+        """Метод для тестирования"""
+
         user_answer = input(f'{self.question}: ')
         if user_answer == self.r_answer:
             print("Ответ верный")
@@ -39,6 +42,8 @@ class Question:
             print("Верный:", self.r_answer)
 
     def build_feedback(self, user_answer):
+        """Дает пользователю обратную связь на ответ"""
+
         if user_answer == self.r_answer:
             print("Ответ верный")
             print(f'вы получили {self.points} баллов')

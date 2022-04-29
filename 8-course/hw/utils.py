@@ -13,12 +13,6 @@ def load_questions():
     return question_list
 
 
-# def random_question():
-#     list_questions = load_questions()
-#     for s in load_questions():
-#         return s['question']
-
-
 def random_by_num():
     list_ = load_questions()
     n = random.randint(0, len(list_) - 1)
