@@ -52,10 +52,10 @@ class Question:
             print("Верный:", self.r_answer)
 
 
-q_dicts_list = load_questions()
-
-for q in q_dicts_list:
-    rand_dict = random_by_num()
-
-    q1 = Question(rand_dict['question'], rand_dict['answer'], rand_dict['difficulty'])
-    q1.ask()
+# q_dicts_list = load_questions()
+#
+# for q in q_dicts_list:
+#     rand_dict = random_by_num()
+#
+#     q1 = Question(rand_dict['question'], rand_dict['answer'], rand_dict['difficulty'])
+#     q1.ask()
