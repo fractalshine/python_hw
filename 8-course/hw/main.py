@@ -1,61 +1,30 @@
+from question import *
 from utils import *
 
+questions = []
 
-class Question:
-
-    def __init__(self, question, r_answer, difficulty, is_asked=False, user_answer=None):
-        self.question = question
-        self.difficulty = difficulty
-        self.r_answer = r_answer
-        self.points = difficulty * 10
-        self.is_asked = is_asked
-        self.user_answer = user_answer
-
-    def get_points(self):
-        """Возвращает int, количество баллов.
-        Баллы зависят от сложности: за 1 дается 10 баллов, за 5 дается 50 баллов.
-        """
-        return self.points
-
-    def is_correct(self, user_answer):
-        """Возвращает True, если ответ пользователя совпадает
-        с верным ответом иначе False.
-        """
-        if user_answer == self.r_answer:
-            return True
-        else:
-            return False
-
-    def build_question(self):
-        return f"Вопрос {self.question}" \
-               f"Сложность {self.difficulty}/5"
-
-    def ask(self):
-        """Метод для тестирования"""
-
-        user_answer = input(f'{self.question}: ')
-        if user_answer == self.r_answer:
-            print("Ответ верный")
-            print(f'вы получили {self.points} баллов')
-        else:
-            print("Ответ неверный")
-            print("Верный:", self.r_answer)
-
-    def build_feedback(self, user_answer):
-        """Дает пользователю обратную связь на ответ"""
-
-        if user_answer == self.r_answer:
-            print("Ответ верный")
-            print(f'вы получили {self.points} баллов')
-        else:
-            print("Ответ неверный")
-            print("Верный:", self.r_answer)
+q_dicts_list = load_questions()
+for q in q_dicts_list:
+    questions.append(Question(q['question'], q['answer'], q['difficulty']))
 
 
-# q_dicts_list = load_questions()
-#
+for question in questions:
+    print(question.ask())
+# print(questions)
+# rand_dict = random_by_num()
 # for q in q_dicts_list:
 #     rand_dict = random_by_num()
 #
 #     q1 = Question(rand_dict['question'], rand_dict['answer'], rand_dict['difficulty'])
-#     q1.ask()
+#
+#     print(q1.build_question())
+
+
+# # questions = [
+# #     Question(q_dicts_list[0]['question'], q_dicts_list[0]['answer'], q_dicts_list[0]['difficulty']),
+# #     Question(q_dicts_list[1]['question'], q_dicts_list[1]['answer'], q_dicts_list[1]['difficulty']),
+# #     Question(q_dicts_list[2]['question'], q_dicts_list[2]['answer'], q_dicts_list[2]['difficulty']),
+# #     Question(q_dicts_list[3]['question'], q_dicts_list[3]['answer'], q_dicts_list[3]['difficulty'])
+# # ]
+# for q in questions:
+#     print(q.build_question())
