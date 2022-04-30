@@ -18,10 +18,11 @@ class Question:
         """Возвращает True, если ответ пользователя совпадает
         с верным ответом иначе False.
         """
-        if self.user_answer == self.r_answer:
-            return True
-        else:
-            return False
+        # if self.user_answer == self.r_answer:
+        #     return True
+        # else:
+        #     return False
+        return self.user_answer == self.r_answer
 
     def build_question(self):
         return f"Вопрос {self.question}\n" \
