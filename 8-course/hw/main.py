@@ -29,11 +29,3 @@ for question in questions:
 #     print(q1.build_question())
 
 
-# # questions = [
-# #     Question(q_dicts_list[0]['question'], q_dicts_list[0]['answer'], q_dicts_list[0]['difficulty']),
-# #     Question(q_dicts_list[1]['question'], q_dicts_list[1]['answer'], q_dicts_list[1]['difficulty']),
-# #     Question(q_dicts_list[2]['question'], q_dicts_list[2]['answer'], q_dicts_list[2]['difficulty']),
-# #     Question(q_dicts_list[3]['question'], q_dicts_list[3]['answer'], q_dicts_list[3]['difficulty'])
-# # ]
-# for q in questions:
-#     print(q.build_question())
