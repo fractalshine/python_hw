@@ -14,11 +14,11 @@ class Question:
         """
         return self.points
 
-    def is_correct(self, user_answer):
+    def is_correct(self):
         """Возвращает True, если ответ пользователя совпадает
         с верным ответом иначе False.
         """
-        if user_answer == self.r_answer:
+        if self.user_answer == self.r_answer:
             return True
         else:
             return False
@@ -27,21 +27,20 @@ class Question:
         return f"Вопрос {self.question}\n" \
                f"Сложность {self.difficulty}/5"
 
-    def ask(self):
-        """Метод для тестирования"""
-
-        user_answer = input(f'{self.question}: ')
-        if user_answer == self.r_answer:
-            print("Ответ верный")
-            print(f'вы получили {self.points} баллов')
-        else:
-            print("Ответ неверный")
-            print("Верный:", self.r_answer)
+    # def ask(self):
+    #     """Метод для тестирования"""
+    #
+    #     user_answer = input(f'{self.question}: ')
+    #     if user_answer == self.r_answer:
+    #         print("Ответ верный")
+    #         print(f'вы получили {self.points} баллов')
+    #     else:
+    #         print("Ответ неверный")
+    #         print("Верный:", self.r_answer)
 
     def build_feedback(self):
         """Дает пользователю обратную связь на ответ"""
-        user_answer = input(f'{self.question}: ')
-        if user_answer == self.r_answer:
+        if self.is_correct():
             print("Ответ верный")
             print(f'вы получили {self.points} баллов')
         else:

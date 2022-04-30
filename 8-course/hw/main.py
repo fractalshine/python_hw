@@ -1,5 +1,6 @@
 from question import *
 from utils import *
+from random import shuffle
 
 questions = []
 
@@ -7,9 +8,17 @@ q_dicts_list = load_questions()
 for q in q_dicts_list:
     questions.append(Question(q['question'], q['answer'], q['difficulty']))
 
+shuffle(questions)
 
 for question in questions:
-    print(question.ask())
+    if not question.is_asked:
+        print(question.build_question())
+        question.is_asked = True
+        question.user_answer = input()
+        question.build_feedback()
+    else:
+        continue
+
 # print(questions)
 # rand_dict = random_by_num()
 # for q in q_dicts_list:
