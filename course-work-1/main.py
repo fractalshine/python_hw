@@ -49,10 +49,7 @@ while True:
     if replay == "да":
         answers.clear()
         print("Поехали!")
-        # continue
     else:
         break
 
 
-# print(morse_encode(get_word()))
-# print(print_statistics())

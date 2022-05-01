@@ -25,8 +25,8 @@ class Question:
         return self.user_answer == self.r_answer
 
     def build_question(self):
-        return f"Вопрос {self.question}\n" \
-               f"Сложность {self.difficulty}/5"
+        return f"Вопрос: {self.question}\n" \
+               f"Сложность: {self.difficulty}/5"
 
     # def ask(self):
     #     """Метод для тестирования"""
