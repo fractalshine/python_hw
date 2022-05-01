@@ -19,4 +19,9 @@ def random_by_num():
     return list_[n]
 
 
-
+def print_statistics(answers, score):
+    total_answers = len(answers)
+    right_answers = answers.count(True)
+    return f'Вот и все\n' \
+           f'Отвечено верно {right_answers} вопроса из {total_answers}\n' \
+           f'Набрано баллов: {score}'

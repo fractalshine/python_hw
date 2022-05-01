@@ -1,8 +1,11 @@
-from question import *
-from utils import *
 from random import shuffle
 
+from question import *
+from utils import *
+
 questions = []
+answers = []
+score = 0
 
 q_dicts_list = load_questions()
 for q in q_dicts_list:
@@ -16,10 +19,16 @@ for question in questions:
         question.is_asked = True
         question.user_answer = input()
         question.build_feedback()
+        if question.is_correct():
+            answers.append(True)
+            score += question.points
+        else:
+            answers.append(False)
     else:
         continue
 
-# print(questions)
+print(print_statistics(answers, score))
+
 # rand_dict = random_by_num()
 # for q in q_dicts_list:
 #     rand_dict = random_by_num()
@@ -27,5 +36,3 @@ for question in questions:
 #     q1 = Question(rand_dict['question'], rand_dict['answer'], rand_dict['difficulty'])
 #
 #     print(q1.build_question())
-
-
