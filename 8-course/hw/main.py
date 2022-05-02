@@ -19,11 +19,13 @@ for question in questions:
         question.is_asked = True
         question.user_answer = input()
         question.build_feedback()
+        # answers.append(question.is_correct())
         if question.is_correct():
             answers.append(True)
             score += question.points
         else:
             answers.append(False)
+
     else:
         continue
 
