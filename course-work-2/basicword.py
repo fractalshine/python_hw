@@ -4,4 +4,9 @@ class BasicWord:
         self.initial_word = initial_word
         self.subwords = subwords
 
-    def is_correct(self):
+    def is_correct(self, user_input):
+        if user_input in self.subwords:
+            return True
+
+    def get_len(self):
+        return len(self.subwords)

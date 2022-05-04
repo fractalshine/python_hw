@@ -3,12 +3,7 @@ import random
 
 import requests
 
-
-# resp = requests.get('https://jsonkeeper.com/b/9ZM4', params={'method': 'getQuote', 'format': 'json'})
-# print(resp.text)
-# data = resp.json()
-# for s in data:
-#     print(s['subwords'])
+from basicword import BasicWord
 
 
 def load_json():
@@ -25,4 +20,10 @@ def random_by_num():
     return list_[n]
 
 
-print(random_by_num())
+def load_random_word():
+    rand_word = random_by_num()
+    bw = BasicWord(rand_word['word'], rand_word['subwords'])
+    return bw
+
+
+# print(load_random_word())
