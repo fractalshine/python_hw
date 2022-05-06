@@ -4,7 +4,7 @@ from basicword import BasicWord
 
 # print(load_random_word())
 
-username = input("Ввведите имя игрока")
+username = input("Введите имя игрока")
 
 player = Player(username)
 
@@ -15,15 +15,20 @@ print(f"Составьте {rand_word.get_len()} слов из слова {rand_
 print("Поехали, ваше первое слово?")
 for word in rand_word.subwords:
     user_input = input()
-
-    if rand_word.is_correct(user_input):
+    if user_input in player.used_words:
+        print(f"слово \"{user_input}\" уже использовалось")
+        continue
+    elif rand_word.is_correct(user_input):
         print("right")
         player.add_used_word(user_input)
+        print(player.used_words)
     elif user_input == "stop":
         print(f"Пока, ты отгадал {len(player.used_words)} слов.")
         quit(0)
+
     else:
         print("wrong")
 
 print(f"Слова закончились, игра завершена!\n"
       f"Вы отгадали {len(player.used_words)} слов!")
+
