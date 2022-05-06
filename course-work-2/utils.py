@@ -1,4 +1,3 @@
-# url = 'https://jsonkeeper.com/b/9ZM4'
 import random
 
 import requests
@@ -15,15 +14,16 @@ def load_json():
 
 
 def random_by_num():
+    """Возвращает случайный словарь из списка словарей"""
+
     list_ = load_json()
     n = random.randint(0, len(list_) - 1)
     return list_[n]
 
 
 def load_random_word():
+    """Возвращает экземпляр со словом и списком подслов"""
+
     rand_word = random_by_num()
     bw = BasicWord(rand_word['word'], rand_word['subwords'])
     return bw
-
-
-# print(load_random_word())
