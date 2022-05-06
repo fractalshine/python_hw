@@ -9,7 +9,7 @@ from basicword import BasicWord
 def load_json():
     """Выгружаем json с вебсайта в список"""
 
-    resp = requests.get('http://95.31.213.27/words.json', params={'method': 'getQuote', 'format': 'json'})
+    resp = requests.get('http://95.31.213.27/words_v2.json', params={'method': 'getQuote', 'format': 'json'})
     data = resp.json()
     return data
 

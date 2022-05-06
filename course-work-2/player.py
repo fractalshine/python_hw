@@ -1,6 +1,6 @@
 class Player:
 
-    def __init__(self, username, used_words):
+    def __init__(self, username):
         self.username = username
         self.used_words = []
 
