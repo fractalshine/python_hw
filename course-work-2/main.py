@@ -3,7 +3,7 @@ from player import Player
 
 
 def main():
-    username = input("Введите имя игрока")
+    username = input("Введите имя игрока\n")
 
     player = Player(username)
 
