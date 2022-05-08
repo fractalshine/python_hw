@@ -20,7 +20,6 @@ def main():
         elif rand_word.is_correct(user_input):
             print("Верно, такое слово существует")
             player.add_used_word(user_input)
-            print(player.used_words)
         elif user_input == "stop":
             print(f"Пока, ты отгадал {len(player.used_words)} слов.")
             quit(0)
