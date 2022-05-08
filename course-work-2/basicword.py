@@ -5,10 +5,11 @@ class BasicWord:
         self.subwords = subwords
 
     def is_correct(self, user_input):
-        if user_input in self.subwords:
-            return True
-        else:
-            return False
+        return user_input in self.subwords
+        # if user_input in self.subwords:
+        #     return True
+        # else:
+        #     return False
 
     def get_len(self):
         return len(self.subwords)

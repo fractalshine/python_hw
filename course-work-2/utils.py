@@ -16,9 +16,9 @@ def load_json():
 def random_by_num():
     """Возвращает случайный словарь из списка словарей"""
 
-    list_ = load_json()
-    n = random.randint(0, len(list_) - 1)
-    return list_[n]
+    list_of_dicts = load_json()
+    n = random.randint(0, len(list_of_dicts) - 1)
+    return list_of_dicts[n]
 
 
 def load_random_word():
