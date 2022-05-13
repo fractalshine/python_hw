@@ -32,8 +32,18 @@ def page_uid(uid):
            f'{"<pre>" + string + "</pre>"}'
 
 
-
-
+@app.route("/skills/<skill>")
+def page_skills(skill):
+    string = ""
+    for dictionary in candidates_list:
+        string_lower = dictionary['skills'].lower()
+        skills_list = string_lower.split(", ")
+        if skill.lower() in skills_list:
+            string += "Имя кандидата - " + dictionary['name'] + "\n" + \
+                      "Позиция кандидата - " + dictionary['position'] + "\n" + \
+                      "Навыки через запятую: " + dictionary['skills'] + "\n" + \
+                      "" + "\n"
+    return f'{"<pre>" + string + "</pre>"}'
 
 
 app.run()
