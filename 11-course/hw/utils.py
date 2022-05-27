@@ -22,7 +22,7 @@ def get_candidate_by_name(candidate):
 
 
 def get_candidates_by_skill(skill_name):
-    """"Doc"""
+    """"Получаем список словарей кандидатов по навыку"""
 
     dict_list = load_candidates_from_json()
     skill_name_lower = skill_name.lower()
@@ -37,13 +37,10 @@ def get_candidates_by_skill(skill_name):
 
 
 def get_candidate(pk):
-    """Doc"""
+    """Получаем словарь кандидатов по айди"""
 
     dict_list = load_candidates_from_json()
 
     for dictionary in dict_list:
         if dictionary['id'] == pk:
             return dictionary
-
-
-print(get_candidate(4))
