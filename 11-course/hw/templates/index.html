@@ -1,0 +1,6 @@
+{% for candidate in candidates %}
+<h1>Профиль пользователя {{ candidate.name }}</h1>
+<p>Позиция кандидата: {{ candidate.position }}</p>
+<img src="{{ candidate.picture }}" alt="photo">
+<p>Навыки кандидата: {{ candidate.skills }}</p>
+{% endfor %}
