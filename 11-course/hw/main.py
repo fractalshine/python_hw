@@ -11,9 +11,17 @@ def index():
 
 
 @app.route("/skills/<skill>")
-def page_skills(skill):
-    return render_template('skills.html')
-    pass
+def search_skills(skill):
+    candidate_dicts = get_candidates_by_skill(skill)
+    skilled_count = len(candidate_dicts)
+    return render_template('skills.html', skilled=candidate_dicts, count=skilled_count)
+
+
+@app.route("/search/<name>")
+def search_names(name):
+    candidate_dicts = get_candidates_by_name(name)
+    skilled_count = len(candidate_dicts)
+    return render_template('search.html', skilled=candidate_dicts, count=skilled_count)
 
 
 @app.route("/candidate/<int:pk>")

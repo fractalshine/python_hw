@@ -10,3 +10,4 @@ def load_candidates():
     candidates_list = json.loads(raw_json)
 
     return candidates_list
+
