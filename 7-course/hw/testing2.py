@@ -1,15 +1,15 @@
 from utils import *
 
-
 pk_student_input = int(input("Введите номер студента\n"))
 
 try:
-    get_student_by_pk(pk_student_input)
+    student_dict = get_student_by_pk(pk_student_input)
 except IndexError:
     print("Такого студента нет")
     quit(0)
+else:
+    student_dict = student_dict
 
-student_dict = get_student_by_pk(pk_student_input)
 student = student_dict['full_name']
 student_skills = student_dict['skills']
 

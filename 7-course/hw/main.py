@@ -1,15 +1,29 @@
 from utils import *
 
 
-pk_student_input = int(input("Введите номер студента\n"))
+def is_pk_in_db():
+    while True:
+        try:
+            user_input = int(input("Введите номер студента\n"))
+        except ValueError:
+            print("Вы ввели не число, повторите ввод")
+            continue
+        else:
+            user_input = user_input
+        try:
+            student_dict = get_student_by_pk(user_input)
+        except IndexError:
+            user_input = input("Такого студента нет, желаете повторить поиск?((Y)es/(N)o)\n").lower()
+            if user_input == "y":
+                continue
+            else:
+                quit(0)
+        else:
+            return student_dict, user_input
 
-try:
-    get_student_by_pk(pk_student_input)
-except IndexError:
-    print("Такого студента нет")
-    quit(0)
 
-student_dict = get_student_by_pk(pk_student_input)
+student_dict, pk_student_input = is_pk_in_db()
+
 student = student_dict['full_name']
 student_skills = student_dict['skills']
 
