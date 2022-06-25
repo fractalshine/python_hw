@@ -2,6 +2,7 @@
 
 # Добавим импорт шаблонизатора
 from flask import render_template, Blueprint, request
+from utils import load_json
 
 # Добавим настройку папки с шаблонами
 main_blueprint = Blueprint(
@@ -14,7 +15,8 @@ main_blueprint = Blueprint(
 # Добавим render_template
 @main_blueprint.route('/')
 def main_page():
-    return render_template("index.html")
+    posts = reversed(load_json())
+    return render_template("index.html", posts=posts)
 
 
 # Добавим render_template
