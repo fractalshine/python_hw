@@ -1,18 +1,35 @@
 import json
 import time
 from flask import request
-from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER, logger
+from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER, logger, POST_PATH
 
 
 def load_json() -> list:
     """Выгружаем посты в список из файла"""
 
-    with open('posts.json', encoding='utf-8') as f:
+    with open(POST_PATH, encoding='utf-8') as f:
         raw_json = f.read()
 
     post_list = json.loads(raw_json)
 
     return post_list
+
+
+def validate_json() -> tuple:
+    try:
+        posts = reversed(load_json())
+        template = "index.html"
+        return template, None, posts
+    except FileNotFoundError:
+        template = "index_errorpage.html"
+        text = "Файл базы данных не найден"
+        logger.error(text)
+        return template, text, None
+    except json.JSONDecodeError:
+        template = "index_errorpage.html"
+        text = "Файл базы данных имеет неподходящий формат"
+        logger.error(text)
+        return template, text, None
 
 
 def is_filename_allowed(filename) -> bool:

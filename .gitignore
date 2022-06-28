@@ -1,4 +1,5 @@
 /8-course/hw/test/
-/.idea
 /12-course/hw/uploads
-/12-course/hw/
+/12-course/hw/testutils
+/12-course/hw/venv
+/.idea/
