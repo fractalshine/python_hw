@@ -2,7 +2,7 @@
 
 # Добавим импорт шаблонизатора
 from flask import render_template, Blueprint, request
-from utils import load_json
+from utils import load_json, get_posts
 
 # Добавим настройку папки с шаблонами
 main_blueprint = Blueprint(
@@ -23,5 +23,7 @@ def main_page():
 @main_blueprint.route('/search')
 def search_page():
     s = request.args['s']
-    return render_template("post_list.html")
+    posts = get_posts(s)
+
+    return render_template("post_list.html", posts=posts, search=s)
 

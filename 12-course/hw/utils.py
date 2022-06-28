@@ -1,7 +1,10 @@
 import json
+import time
+from flask import request
+from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER, logger
 
 
-def load_json():
+def load_json() -> list:
     """Выгружаем посты в список из файла"""
 
     with open('posts.json', encoding='utf-8') as f:
@@ -10,6 +13,15 @@ def load_json():
     post_list = json.loads(raw_json)
 
     return post_list
+
+
+def is_filename_allowed(filename) -> bool:
+    """Проверка на расширение"""
+
+    extension = filename.split(".")[-1]
+    if extension in ALLOWED_EXTENSIONS:
+        return True
+    # return False
 
 
 # function to add to JSON
@@ -25,5 +37,61 @@ def write_json(new_data, filename='posts.json'):
         json.dump(file_data, file, ensure_ascii=False,
                   indent=2)
 
-    # python object to be appended
 
+def get_posts(user_input):
+    """"Получаем список постов по слову из формы поиска"""
+
+    dict_list = load_json()
+    user_input_lower = user_input.lower()
+    search_list = []
+    template = "posts_list.html"
+
+    if user_input == "":
+        message = "Вы ничего не ввели"
+        template = "index.html"
+        return message, template
+
+    for dictionary in dict_list:
+        post = dictionary['content'].lower()
+        if user_input_lower in post:
+            search_list.append(dictionary)
+            continue
+    return search_list, template
+
+
+def create_post() -> tuple:
+    picture = request.files.get("picture")
+    text = request.form["content"]
+    filename = picture.filename
+    extension = filename.split(".")[-1]
+    time_str = time.strftime("%Y%m%d-%H%M%S")
+    time_filename = f"{time_str}.{extension}"
+    full_filename = f"{UPLOAD_FOLDER}/{time_filename}"
+
+    post_dict = {"uniq_img": f"{full_filename}",
+                 "content": text
+                 }
+    template = "post_uploaded.html"
+
+    if text == "":
+        text = "Вы ничего не ввели"
+        template = "post_form_wrong_ext.html"
+        logger.info(f"{text}")
+        return None, text, None, template
+
+    if not picture:
+        text = "Вы не выбрали картинку"
+        template = "post_form_wrong_ext.html"
+        logger.info(f"{text}")
+        return None, text, None, template
+
+    if not is_filename_allowed(filename):
+        text = f"Расширение {extension} не поддерживается"
+        template = "post_form_wrong_ext.html"
+        logger.info(f"{text}")
+        return None, text, None, template
+
+    picture.save(f"{full_filename}")
+    write_json(post_dict)
+
+    return full_filename, text, time_filename, template
