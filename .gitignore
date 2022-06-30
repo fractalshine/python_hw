@@ -3,3 +3,5 @@
 /12-course/hw/testutils
 /12-course/hw/venv
 /.idea/
+.gitignore
+/13-course/.pytest_cache
