@@ -1,7 +1,11 @@
-/8-course/hw/test/
-/12-course/hw/uploads
-/12-course/hw/testutils
-/12-course/hw/venv
+8-course/hw/test/
+12-course/hw/uploads
+12-course/hw/testutils
+12-course/hw/venv
+12-course/hw/logs
 .idea
 .gitignore
-/13-course/.pytest_cache
+13-course/.pytest_cache
+course-work-3/data
+course-work-3/uploads
+course-work-3/logs
