@@ -1,0 +1,1 @@
+{{ comments | count }} - фильтры в jinja
