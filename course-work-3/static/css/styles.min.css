@@ -256,6 +256,19 @@ textarea {
 	max-width: 100%
 }
 
+.header__search-btn {
+	position: absolute;
+	left: 0;
+	top: 34px;
+	text-decoration: none;
+	display: block
+}
+
+.header__search-icon {
+	display: inline-block;
+	vertical-align: middle
+}
+
 .header__bookmark-btn {
 	position: absolute;
 	right: 0;
