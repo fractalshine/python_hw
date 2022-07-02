@@ -19,11 +19,15 @@ def main_page():
     return render_template("index.html", posts=posts)
 
 
-# Добавим render_template
 @main_blueprint.route('/search')
 def search_page():
+    return render_template("search.html")
+
+
+# Добавим render_template
+@main_blueprint.route('/search')
+def search():
     s = request.args['s']
     posts = get_posts_by_word(s)
 
     return render_template("post_list.html", posts=posts, search=s)
-
