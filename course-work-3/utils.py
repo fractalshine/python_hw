@@ -1,7 +1,7 @@
 import json
 import time
 from flask import request
-from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER,\
+from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER, \
     logger, POST_PATH
 
 
@@ -64,7 +64,7 @@ def write_json(new_data, filename=POST_PATH):
                   indent=2)
 
 
-def get_posts(user_input):
+def get_posts_by_word(user_input):
     """"Получаем список постов по слову из формы поиска"""
 
     dict_list = load_posts()
@@ -84,6 +84,13 @@ def get_posts(user_input):
             continue
     return search_list, template
 
+
+def get_post_by_uid(uid):
+    dict_list = load_posts()
+
+    for d in dict_list:
+        if uid == d['pk']:
+            return d
 
 def create_post() -> tuple:
     picture = request.files.get("picture")
