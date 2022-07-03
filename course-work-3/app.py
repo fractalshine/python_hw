@@ -18,4 +18,4 @@ app.register_blueprint(api_blueprint)
 app.register_blueprint(error_blueprint)
 
 if __name__ == "__main__":
-    app.run(port=5005)
+    app.run()
