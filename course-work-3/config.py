@@ -12,7 +12,8 @@ LOGS_API_PATH = "logs/api.log"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
 # logs conf
-# logging.basicConfig(filename=LOGS_PATH)
+
+# basic logger
 logger = logging.getLogger("logger")
 logger.setLevel(logging.INFO)
 file_handler = logging.FileHandler(LOGS_PATH)
@@ -20,6 +21,7 @@ log_formatter = logging.Formatter("%(levelname)s : %(asctime)s : %(message)s")
 file_handler.setFormatter(log_formatter)
 logger.addHandler(file_handler)
 
+# logger for api
 logger_api = logging.getLogger("logger_api")
 logger_api.setLevel(logging.INFO)
 file_handler_api = logging.FileHandler(LOGS_API_PATH)
