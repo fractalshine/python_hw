@@ -22,15 +22,9 @@ def page_years(from_year, to_year):
     return jsonify(result)
 
 
-@app.route("/movie/by_rating/<rating>")
-def page_rating(rating):
-    result = get_dict_by_auditory(rating)
-    return jsonify(result)
-
-
-@app.route("/movie/by_rating/<rating>")
-def page_rating(rating):
-    result = get_dict_by_auditory(rating)
+@app.route("/movie/by_auditory/<auditory>")
+def page_rating(auditory):
+    result = get_dict_by_auditory(auditory)
     return jsonify(result)
 
 

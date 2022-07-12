@@ -1,7 +1,5 @@
 import sqlite3
 from errors_classes import ValueNotInAuditoryRange
-import cursor as cursor
-import family as family
 
 DB_PATH = "netflix.db"
 
@@ -82,7 +80,7 @@ def get_dict_by_year_range(from_year, to_year):
 
 
 def validate_and_create_auditory_list(auditory):
-    """Функция принимает аудиторию и возвращает соответствующий набор рейтингов в виде списка"""
+    """Функция принимает аудиторию и возвращает соответствующий набор рейтингов"""
     children = ["G", None, None]
     family = ["G", "PG", "PG-13"]
     adult = ["R", "NC-17", None]
@@ -186,7 +184,8 @@ def type_year_genre(type, release_year, genre):
     AND `release_year` LIKE ?
     AND `listed_in` LIKE ?
     """
-    cur.execute(type_query, ("%"+type+"%", "%"+release_year+"%", "%"+genre+"%"))
+    cur.execute(type_query, ("%" + type + "%", "%" + release_year + "%", "%" + genre + "%"))
     executed_type = cur.fetchall()
     con.close()
     return executed_type
+
