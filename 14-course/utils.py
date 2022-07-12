@@ -190,5 +190,3 @@ def type_year_genre(type, release_year, genre):
     executed_type = cur.fetchall()
     con.close()
     return executed_type
-
-print(type_year_genre("Movie", "2004", "horror"))
