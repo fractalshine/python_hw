@@ -29,7 +29,8 @@ def create_cursor():
     conn = validate_connection(DB_PATH)
     with conn as connection:
         cursor = connection.cursor()
-        return cursor
+
+    return cursor
 
 
 def get_dict_by_title(title):
@@ -80,7 +81,8 @@ def get_dict_by_year_range(from_year, to_year):
     return dict_list
 
 
-def validate_rating(auditory):
+def validate_and_create_auditory_list(auditory):
+    """Функция принимает аудиторию и возвращает соответствующий набор рейтингов в виде списка"""
     children = ["G", None, None]
     family = ["G", "PG", "PG-13"]
     adult = ["R", "NC-17", None]
@@ -95,8 +97,8 @@ def validate_rating(auditory):
     return auditory
 
 
-def get_dict_by_rating(auditory):
-    auditory = validate_rating(auditory)
+def get_dict_by_auditory(auditory):
+    auditory = validate_and_create_auditory_list(auditory)
     cur = create_cursor()
     select_query = """SELECT  title, `rating`, `description`
                             FROM netflix
@@ -119,3 +121,74 @@ def get_dict_by_rating(auditory):
         }
         dict_list.append(rating_dict)
     return dict_list
+
+
+def get_recent_dict_by_genre(genre):
+    """Получаем список свежих фильмов по жанру"""
+
+    cur = create_cursor()
+    select_query = """SELECT  title, `description`
+                      FROM netflix
+                      where `listed_in` LIKE ?
+                      ORDER BY `release_year` DESC
+                      LIMIT 10
+    """
+    cur.execute(select_query, ('%' + genre + '%',))
+    full_result = cur.fetchall()
+    dict_list = []
+    for line in full_result:
+        title = line[0]
+        description = line[1].rstrip()
+        genre_dict = {
+            "title": title,
+            "description": description,
+        }
+        dict_list.append(genre_dict)
+    return dict_list
+
+
+def get_actors(one, two):
+    """Функция принимает имена двух актеров и возвращает список тех, кто играет с ними в паре больше 2 раз"""
+
+    cur = create_cursor()
+    actors_query = """
+        SELECT "cast"
+        FROM netflix
+        WHERE "cast" LIKE ? AND "cast" LIKE ?
+        """
+    cur.execute(actors_query, ('%' + one + '%', '%' + two + '%'))
+    full_result = cur.fetchall()
+    list_of_actors = []
+    for line in full_result:
+        for actor in line:
+            list_of_actors.append(actor)
+    new = ', '.join(list_of_actors)
+    new_list = new.split(', ')
+
+    result = set()
+    for actor in new_list:
+        num = new_list.count(actor)
+        if actor != one and actor != two and num > 2:
+            result.add(actor)
+
+    return result
+
+
+def type_year_genre(type, release_year, genre):
+    """Функция принимает тип, год и жанр фильмы и возвращает фильмы"""
+
+    con = sqlite3.connect("netflix.db")
+    cur = con.cursor()
+    type_query = """
+    SELECT `title`, `description`
+    FROM netflix
+    WHERE `type` LIKE ?
+    AND `release_year` LIKE ?
+    AND `listed_in` LIKE ?
+    """
+    cur.execute(type_query, ("%"+type+"%", "%"+release_year+"%", "%"+genre+"%"))
+    executed_type = cur.fetchall()
+    con.close()
+    return executed_type
+
+print(type_year_genre("Movie", "2004", "horror"))

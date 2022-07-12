@@ -1,4 +1,5 @@
-from utils import get_dict_by_title, get_dict_by_year_range, get_dict_by_rating
+from utils import get_dict_by_title, get_dict_by_year_range,\
+    get_dict_by_auditory
 from flask import Flask, jsonify
 from errors_classes import ValueNotInAuditoryRange
 
@@ -23,7 +24,13 @@ def page_years(from_year, to_year):
 
 @app.route("/movie/by_rating/<rating>")
 def page_rating(rating):
-    result = get_dict_by_rating(rating)
+    result = get_dict_by_auditory(rating)
+    return jsonify(result)
+
+
+@app.route("/movie/by_rating/<rating>")
+def page_rating(rating):
+    result = get_dict_by_auditory(rating)
     return jsonify(result)
 
 
