@@ -32,15 +32,15 @@ def create_cursor():
 
 
 def get_dict_by_title(title):
-    cursor = create_cursor()
+    cur = create_cursor()
     select_query = """SELECT `title`, `country`, `release_year`, `listed_in`, `description`
                     FROM netflix
                     where `title` LIKE ?
                     ORDER BY `release_year` DESC
                     """
-    cursor.execute(select_query, ('%' + title + '%',))
+    cur.execute(select_query, ('%' + title + '%',))
 
-    full_result = cursor.fetchone()
+    full_result = cur.fetchone()
     title = full_result[0]
     country = full_result[1]
     release_year = full_result[2]
@@ -58,14 +58,28 @@ def get_dict_by_title(title):
 
 
 def get_dict_by_year_range(from_year, to_year):
-    cursor = create_cursor()
-    select_query = """SELECT `title`, `country`, `release_year`, `listed_in`, `description`
+    cur = create_cursor()
+    select_query = """SELECT `title`, `release_year`
                         FROM netflix
-                        where `title` LIKE ?
-                        ORDER BY `release_year` DESC
+                        where `release_year` between ? and ?
+                        LIMIT 20
                         """
-# Testing part
+    cur.execute(select_query, (from_year, to_year))
 
-# print(get_dict_by_title("family"))
+    full_result = cur.fetchall()
+    dict_list = []
+    for line in full_result:
+        title = line[0]
+        year = line[1]
+        title_dict = {
+            "title": title,
+            "year": year
+        }
+        dict_list.append(title_dict)
+    return dict_list
 
-# print(create_connection(DB_PATH))
+
+# Testing area below
+print(get_dict_by_year_range(2005, 2006))
+
+

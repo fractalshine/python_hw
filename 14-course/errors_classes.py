@@ -1,0 +1,2 @@
+class ValueNotInAuditoryRange(Exception):
+    pass
