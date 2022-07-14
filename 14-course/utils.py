@@ -79,20 +79,34 @@ def get_dict_by_year_range(from_year, to_year):
     return dict_list
 
 
-def validate_and_create_auditory_list(auditory):
-    """Функция принимает аудиторию и возвращает соответствующий набор рейтингов"""
-    children = ["G", None, None]
-    family = ["G", "PG", "PG-13"]
-    adult = ["R", "NC-17", None]
-    if auditory == "children":
-        auditory = children
-    elif auditory == "family":
-        auditory = family
-    elif auditory == "adult":
-        auditory = adult
-    else:
-        raise ValueNotInAuditoryRange("Нет такого рейтинга!")
-    return auditory
+# def validate_and_create_auditory_list(auditory) -> list:
+#     """Функция принимает аудиторию и возвращает соответствующий набор рейтингов"""
+#
+#     children = ["G", "G", "G"]
+#     family = ["G", "PG", "PG-13"]
+#     adult = ["R", "NC-17", None]
+#     if auditory == "children":
+#         auditory = children
+#     elif auditory == "family":
+#         auditory = family
+#     elif auditory == "adult":
+#         auditory = adult
+#     else:
+#         raise ValueNotInAuditoryRange("Нет такого рейтинга!")
+#     return auditory
+
+
+def validate_and_create_auditory_list(auditory) -> list:
+    rate_system = {
+        'children': ['G', 'G', 'G'],
+        'family': ['G', 'PG', 'PG-13'],
+        'adult': ['R', 'NC-17', 'R']
+    }
+    for key, value in rate_system.items():
+        if auditory == key:
+            return value
+        elif auditory not in rate_system:
+            raise ValueNotInAuditoryRange("Нет такого рейтинга!")
 
 
 def get_dict_by_auditory(auditory):
@@ -100,7 +114,7 @@ def get_dict_by_auditory(auditory):
     cur = create_cursor()
     select_query = """SELECT  title, `rating`, `description`
                             FROM netflix
-                            where `rating` = ? or rating = ? or rating = ?
+                            where `rating` IN ((SELECT Value FROM ?)
                             LIMIT 50
                             """
     cur.execute(select_query, auditory)
@@ -127,7 +141,7 @@ def get_recent_dict_by_genre(genre):
     cur = create_cursor()
     select_query = """SELECT  title, `description`
                       FROM netflix
-                      where `listed_in` LIKE ?
+                      where `listed_in` LIKE (?)
                       ORDER BY `release_year` DESC
                       LIMIT 10
     """
@@ -188,4 +202,5 @@ def type_year_genre(type, release_year, genre):
     executed_type = cur.fetchall()
     con.close()
     return executed_type
+
 
