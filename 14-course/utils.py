@@ -109,14 +109,19 @@ def validate_and_create_auditory_list(auditory) -> list:
             raise ValueNotInAuditoryRange("Нет такого рейтинга!")
 
 
+def generate_placeholder(items):
+    """Создает последовательность вопросиков"""
+
+    return ",".join(["?"] * len(items))
+
+
 def get_dict_by_auditory(auditory):
     auditory = validate_and_create_auditory_list(auditory)
     cur = create_cursor()
-    select_query = """SELECT  title, `rating`, `description`
-                            FROM netflix
-                            where `rating` IN ((SELECT Value FROM ?)
-                            LIMIT 50
-                            """
+    select_query = "SELECT  title, `rating`, `description` " \
+                   "FROM netflix " \
+                   "where `rating` IN (" + generate_placeholder(auditory) + ") LIMIT 50"
+
     cur.execute(select_query, auditory)
 
     full_result = cur.fetchall()
@@ -204,3 +209,5 @@ def type_year_genre(type, release_year, genre):
     return executed_type
 
 
+print(get_dict_by_auditory("family"))
+# print(generate_placeholder(validate_and_create_auditory_list("family")))
