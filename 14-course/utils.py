@@ -208,6 +208,3 @@ def type_year_genre(type, release_year, genre):
     con.close()
     return executed_type
 
-
-print(get_dict_by_auditory("family"))
-# print(generate_placeholder(validate_and_create_auditory_list("family")))
